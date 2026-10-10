@@ -5,7 +5,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function TrainersPage() {
-  // قائمة المدربين (16 مدرباً سعودياً: رجال ونساء بمعلومات حقيقية مع أيقونات رمزية)
   const [trainers, setTrainers] = useState([
     {
       id: 1,
@@ -137,7 +136,7 @@ export default function TrainersPage() {
       reviewsCount: 39,
       price: "320 ر.س / شهرياً",
       whatsapp: "https://wa.me/966500000009",
-      description: "مختص ببرامج الكارديو المكثف وخسارة الوزن الزائد خلال قياسي.",
+      description: "مختص ببرامج الكارديو المكثف وخسارة الوزن الزائد خلال معدل قياسي.",
       bookmarked: false,
       userReviews: ["نزلت معه 10 كيلو بطريقة صحية."],
       newReviewText: "",
@@ -146,7 +145,7 @@ export default function TrainersPage() {
       id: 10,
       name: "الكابتن سارة القحطاني",
       gender: "female",
-      specialty: "تدريب شخصي مكثف (Personal Trainer)",
+      specialty: "تدريب شخصي مكثف",
       club: "Fitness Time | وقت اللياقة",
       rating: "4.9",
       reviewsCount: 50,
@@ -191,7 +190,7 @@ export default function TrainersPage() {
       id: 13,
       name: "الكابتن رائد المالكي",
       gender: "male",
-      specialty: "تنشيط وعضلات البطن (Core)",
+      specialty: "تنشيط وعضلات البطن",
       club: "G4Fit - جي فور فت",
       rating: "4.7",
       reviewsCount: 28,
@@ -252,12 +251,10 @@ export default function TrainersPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTrainer, setSelectedTrainer] = useState<any>(null);
 
-  // تبديل حالة الحفظ (Bookmark)
   const toggleBookmark = (id: number) => {
     setTrainers(trainers.map(t => t.id === id ? { ...t, bookmarked: !t.bookmarked } : t));
   };
 
-  // إضافة تقييم نصي للمدرب
   const handleAddReview = (trainerId: number) => {
     setTrainers(trainers.map(t => {
       if (t.id === trainerId && t.newReviewText.trim() !== "") {
@@ -277,7 +274,6 @@ export default function TrainersPage() {
     }));
   };
 
-  // تصفية المدربين حسب البحث
   const filteredTrainers = trainers.filter(trainer =>
     trainer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     trainer.specialty.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -285,42 +281,39 @@ export default function TrainersPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#0f172a] text-slate-100 flex flex-col font-sans" dir="rtl">
+    <div className="min-h-screen bg-[#fcfbf9] text-stone-800 flex flex-col font-sans" dir="rtl">
       <Navbar />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-12">
         <div className="text-center mb-10 space-y-3">
-          <h1 className="text-3xl font-extrabold text-white">نخبة المدربين الرياضيين</h1>
-          <p className="text-slate-400 text-sm max-w-xl mx-auto">
+          <h1 className="text-3xl font-extrabold text-stone-900">نخبة المدربين الرياضيين</h1>
+          <p className="text-stone-600 text-sm max-w-xl mx-auto">
             تصفح قائمة المدربين والمدربات المعتمدين، تعرف على أنديتهم، تواصل معهم مباشرة، واحفظ مفضلتك.
           </p>
 
-          {/* شريط البحث */}
           <div className="max-w-xl mx-auto mt-6">
             <input
               type="text"
               placeholder="ابحث باسم المدرب أو التخصص (مثل: فيصل، كمال أجسام، تغذية...)"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#1e293b] border border-slate-700 px-4 py-3 rounded-2xl text-sm text-white placeholder-slate-400 focus:outline-none focus:border-slate-500 shadow-lg"
+              className="w-full bg-white border border-stone-200 px-4 py-3 rounded-2xl text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:border-emerald-900 shadow-sm transition"
             />
           </div>
         </div>
 
-        {/* شبكة المدربين */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredTrainers.map((trainer) => (
             <div
               key={trainer.id}
-              className="bg-[#1e293b] border border-slate-800 rounded-2xl overflow-hidden shadow-lg flex flex-col justify-between relative group p-5"
+              className="bg-white border border-stone-200/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between relative group p-5"
             >
-              {/* زر الحفظ (Bookmark) */}
               <button
                 onClick={() => toggleBookmark(trainer.id)}
-                className={`absolute top-4 left-4 p-2 rounded-full border z-10 transition shadow-md ${
+                className={`absolute top-4 left-4 p-2 rounded-full border z-10 transition shadow-sm ${
                   trainer.bookmarked
-                    ? "bg-slate-100 text-slate-900 border-white"
-                    : "bg-slate-900/80 text-slate-300 border-slate-700 hover:bg-slate-800"
+                    ? "bg-emerald-900 text-white border-emerald-900"
+                    : "bg-white/90 text-stone-600 border-stone-200 hover:bg-stone-100"
                 }`}
                 title="حفظ المدرب"
               >
@@ -329,40 +322,28 @@ export default function TrainersPage() {
                 </svg>
               </button>
 
-              {/* الأيقونة الرمادية الرمزية (رجل أو امرأة) */}
-              <div className="w-20 h-20 mx-auto my-4 bg-slate-800 border border-slate-700 rounded-full flex items-center justify-center text-slate-400 shadow-inner group-hover:scale-105 transition duration-300">
-                {trainer.gender === "female" ? (
-                  // أيقونة امرأة رمزية
-                  <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                ) : (
-                  // أيقونة رجل رمزية
-                  <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                )}
+              <div className="w-20 h-20 mx-auto my-4 bg-stone-100 border border-stone-200 rounded-full flex items-center justify-center text-stone-600 shadow-inner group-hover:scale-105 transition duration-300">
+                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
               </div>
 
               <div className="flex-1 flex flex-col justify-between space-y-3 text-center">
                 <div>
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <h3 className="text-sm font-bold text-white">{trainer.name}</h3>
-                  </div>
+                  <h3 className="text-sm font-bold text-stone-900 mb-1">{trainer.name}</h3>
                   <div className="flex justify-center mb-2">
-                    <span className="text-[11px] bg-slate-800 text-amber-400 px-2.5 py-0.5 rounded-full border border-slate-700 font-medium">
+                    <span className="text-[11px] bg-emerald-50 text-emerald-900 px-2.5 py-0.5 rounded-lg border border-emerald-200/60 font-semibold">
                       ★ {trainer.rating} ({trainer.reviewsCount})
                     </span>
                   </div>
-                  <p className="text-xs text-slate-300 font-medium mb-1"><span className="text-white">{trainer.specialty}</span></p>
-                  <p className="text-[11px] text-slate-400 mb-2 truncate">{trainer.club}</p>
-                  <p className="text-xs font-semibold text-slate-200">الاشتراك: <span className="text-emerald-400">{trainer.price}</span></p>
+                  <p className="text-xs text-stone-700 font-medium mb-1">{trainer.specialty}</p>
+                  <p className="text-[11px] text-stone-500 mb-2 truncate">{trainer.club}</p>
+                  <p className="text-xs font-semibold text-stone-800">الاشتراك: <span className="text-emerald-900">{trainer.price}</span></p>
                 </div>
 
-                {/* زر التفاصيل وحجز جلسة */}
                 <button
                   onClick={() => setSelectedTrainer(trainer)}
-                  className="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium py-2 rounded-xl transition mt-2"
+                  className="w-full bg-stone-100 hover:bg-stone-200 text-stone-800 border border-stone-200 text-xs font-semibold py-2 rounded-xl transition mt-2"
                 >
                   تفاصيل وحجز جلسة تدريب
                 </button>
@@ -372,54 +353,51 @@ export default function TrainersPage() {
         </div>
 
         {filteredTrainers.length === 0 && (
-          <div className="text-center py-16 text-slate-400 text-sm">
+          <div className="text-center py-16 text-stone-500 text-sm">
             لا توجد نتائج مطابقة لبحثك.
           </div>
         )}
 
-        {/* نافذة تفاصيل المدرب وحجز الجلسة */}
         {selectedTrainer && (
-          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50 overflow-y-auto">
-            <div className="bg-[#1e293b] border border-slate-700 rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative my-8 max-h-[90vh] overflow-y-auto">
-              <div className="flex items-center justify-between border-b border-slate-700 pb-3">
-                <h3 className="text-lg font-bold text-white">{selectedTrainer.name}</h3>
+          <div className="fixed inset-0 bg-stone-900/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 overflow-y-auto">
+            <div className="bg-white border border-stone-200 rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-xl relative my-8 max-h-[90vh] overflow-y-auto">
+              <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+                <h3 className="text-lg font-bold text-stone-900">{selectedTrainer.name}</h3>
                 <button
                   onClick={() => setSelectedTrainer(null)}
-                  className="text-slate-400 hover:text-white text-sm px-2 py-1"
+                  className="text-stone-400 hover:text-stone-700 text-sm px-2 py-1"
                 >
                   ✕
                 </button>
               </div>
 
-              <div className="space-y-4 text-xs text-slate-300">
-                <div className="w-24 h-24 mx-auto bg-slate-800 border border-slate-700 rounded-full flex items-center justify-center text-slate-400 shadow">
+              <div className="space-y-4 text-xs text-stone-700">
+                <div className="w-24 h-24 mx-auto bg-stone-100 border border-stone-200 rounded-full flex items-center justify-center text-stone-600 shadow-sm">
                   <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 bg-slate-900/50 p-3 rounded-xl border border-slate-800">
-                  <p><strong className="text-white">التقييم:</strong> ★ {selectedTrainer.rating}</p>
-                  <p><strong className="text-white">التكلفة:</strong> {selectedTrainer.price}</p>
-                  <p className="col-span-2"><strong className="text-white">النادي التابع له:</strong> {selectedTrainer.club}</p>
-                  <p className="col-span-2"><strong className="text-white">التخصص الدقيق:</strong> {selectedTrainer.specialty}</p>
+                <div className="grid grid-cols-2 gap-2 bg-stone-50 p-3 rounded-2xl border border-stone-200">
+                  <p><strong className="text-stone-900">التقييم:</strong> ★ {selectedTrainer.rating}</p>
+                  <p><strong className="text-stone-900">التكلفة:</strong> {selectedTrainer.price}</p>
+                  <p className="col-span-2"><strong className="text-stone-900">النادي التابع له:</strong> {selectedTrainer.club}</p>
+                  <p className="col-span-2"><strong className="text-stone-900">التخصص الدقيق:</strong> {selectedTrainer.specialty}</p>
                 </div>
 
-                <p><strong className="text-white block mb-1">نبذة عن المدرب:</strong> {selectedTrainer.description}</p>
+                <p><strong className="text-stone-900 block mb-1">نبذة عن المدرب:</strong> {selectedTrainer.description}</p>
 
-                {/* قسم التقييمات السابقة */}
-                <div className="border-t border-slate-700/60 pt-3 space-y-2">
-                  <h4 className="font-bold text-white text-xs">تقييمات المتدربين السابقة:</h4>
+                <div className="border-t border-stone-200 pt-3 space-y-2">
+                  <h4 className="font-bold text-stone-900 text-xs">تقييمات المتدربين السابقة:</h4>
                   <div className="space-y-1.5 max-h-28 overflow-y-auto pr-1">
                     {selectedTrainer.userReviews.map((rev: string, idx: number) => (
-                      <div key={idx} className="bg-slate-800/80 p-2 rounded-lg text-slate-300 text-xs border border-slate-700/50">
-                        💬 {rev}
+                      <div key={idx} className="bg-stone-50 p-2.5 rounded-xl text-stone-700 text-xs border border-stone-200">
+                        {rev}
                       </div>
                     ))}
                   </div>
 
-                  {/* كتابة تقييم جديد */}
-                  <div className="pt-2 text-slate-400">
+                  <div className="pt-2 text-stone-500">
                     أضف تقييمك الخاص (سيحفظ في ملفك الشخصي):
                   </div>
                   <div className="flex gap-2">
@@ -431,11 +409,11 @@ export default function TrainersPage() {
                         const val = e.target.value;
                         setSelectedTrainer({ ...selectedTrainer, newReviewText: val });
                       }}
-                      className="flex-1 bg-slate-900 border border-slate-700 px-3 py-2 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none"
+                      className="flex-1 bg-stone-50 border border-stone-200 px-3 py-2 rounded-xl text-xs text-stone-900 placeholder-stone-400 focus:outline-none focus:border-emerald-900"
                     />
                     <button
                       onClick={() => handleAddReview(selectedTrainer.id)}
-                      className="bg-slate-100 hover:bg-white text-slate-900 font-semibold px-4 py-2 rounded-xl text-xs transition"
+                      className="bg-emerald-900 hover:bg-emerald-800 text-white font-semibold px-4 py-2 rounded-xl text-xs transition"
                     >
                       حفظ التقييم
                     </button>
@@ -443,19 +421,18 @@ export default function TrainersPage() {
                 </div>
               </div>
 
-              {/* أزرار التواصل والحجز */}
               <div className="pt-2 flex gap-3">
                 <a
                   href={selectedTrainer.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white text-center text-xs font-semibold py-3 rounded-xl transition shadow flex items-center justify-center gap-2"
+                  className="flex-1 bg-emerald-900 hover:bg-emerald-800 text-white text-center text-xs font-semibold py-3 rounded-xl transition shadow-sm flex items-center justify-center gap-2"
                 >
                   <span>حجز جلسة وتواصل واتساب</span>
                 </a>
                 <button
                   onClick={() => setSelectedTrainer(null)}
-                  className="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-4 py-3 rounded-xl border border-slate-700 transition"
+                  className="bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs px-4 py-3 rounded-xl border border-stone-200 transition"
                 >
                   إغلاق
                 </button>

@@ -5,15 +5,19 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function ClubsPage() {
+  const [activeFilter, setActiveFilter] = useState<"all" | "men" | "women">("all");
+
   const [clubs, setClubs] = useState([
     {
       id: 1,
       name: "فرع السد نادي IN 2 FITNESS",
       rating: "4.8",
       price: "250 ر.س / شهرياً",
-      locationUrl: "https://maps.google.com",
+      gender: "men",
+      categoryName: "رجال",
+      locationUrl: "https://www.google.com/maps/search/?api=1&query=IN+2+FITNESS+Khamis+Mushait",
       description: "تجهيزات حديثة، مساحات واسعة ومجهزة لأحدث تمارين المقاومة والكارديو.",
-      image: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80",
       bookmarked: false,
     },
     {
@@ -21,9 +25,11 @@ export default function ClubsPage() {
       name: "بودي ماسترز بريميوم",
       rating: "4.9",
       price: "350 ر.س / شهرياً",
-      locationUrl: "https://maps.google.com",
+      gender: "men",
+      categoryName: "رجال",
+      locationUrl: "https://www.google.com/maps/search/?api=1&query=Body+Masters+Khamis+Mushait",
       description: "نادي متكامل يضم مسابح، صالات حديد متطورة، ومدربين معتمدين.",
-      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=800&q=80",
       bookmarked: false,
     },
     {
@@ -31,9 +37,11 @@ export default function ClubsPage() {
       name: "Fitness Time | وقت اللياقة",
       rating: "4.9",
       price: "400 ر.س / شهرياً",
-      locationUrl: "https://maps.google.com",
+      gender: "men",
+      categoryName: "رجال",
+      locationUrl: "https://www.google.com/maps/search/?api=1&query=Fitness+Time+Khamis+Mushait",
       description: "الفرع الرئيسي المجهز بأحدث الأجهزة الرياضية وخدمات الاسترخاء والساونا.",
-      image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=800&q=80",
       bookmarked: false,
     },
     {
@@ -41,9 +49,11 @@ export default function ClubsPage() {
       name: "نادي يورفت النسائي",
       rating: "4.7",
       price: "300 ر.س / شهرياً",
-      locationUrl: "https://maps.google.com",
+      gender: "women",
+      categoryName: "سيدات",
+      locationUrl: "https://www.google.com/maps/search/?api=1&query=نادي+نسائي+خميس+مشيط",
       description: "نادي نسائي متكامل بخصوصية تامّة وإشراف مدربات محترفات.",
-      image: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1593079831268-3381b0db4a77?auto=format&fit=crop&w=800&q=80",
       bookmarked: false,
     },
     {
@@ -51,9 +61,11 @@ export default function ClubsPage() {
       name: "G4Fit - جي فور فت",
       rating: "4.6",
       price: "220 ر.س / شهرياً",
-      locationUrl: "https://maps.google.com",
+      gender: "men",
+      categoryName: "رجال",
+      locationUrl: "https://www.google.com/maps/search/?api=1&query=G4Fit+Khamis+Mushait",
       description: "متخصص في التدريب الحر، الكروسفت، واللياقة الوظيفية.",
-      image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80",
       bookmarked: false,
     },
     {
@@ -61,19 +73,23 @@ export default function ClubsPage() {
       name: "تمرين بلس الرياضي",
       rating: "4.5",
       price: "200 ر.س / شهرياً",
-      locationUrl: "https://maps.google.com",
+      gender: "men",
+      categoryName: "رجال",
+      locationUrl: "https://www.google.com/maps/search/?api=1&query=تمرين+بلس+خميس+مشيط",
       description: "أجواء تحفيزية ممتازة ومعدات مناسبة لكافة مستويات المتدربين.",
-      image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=800&q=80",
       bookmarked: false,
     },
     {
       id: 7,
-      name: "أكاديمية ويمارا للتدريب",
+      name: "أكاديمية ويمارا للتدريب النسائي",
       rating: "4.8",
       price: "320 ر.س / شهرياً",
-      locationUrl: "https://maps.google.com",
-      description: "برامج تدريبية متخصصة واحترافية لتطوير الأداء البدني والمهاري.",
-      image: "https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?auto=format&fit=crop&w=800&q=80",
+      gender: "women",
+      categoryName: "سيدات",
+      locationUrl: "https://www.google.com/maps/search/?api=1&query=ويمارا+خميس+مشيط",
+      description: "برامج تدريبية متخصصة واحترافية لتطوير الأداء البدني والمهاري للنساء.",
+      image: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=800&q=80",
       bookmarked: false,
     },
   ]);
@@ -84,32 +100,72 @@ export default function ClubsPage() {
     setClubs(clubs.map(club => club.id === id ? { ...club, bookmarked: !club.bookmarked } : club));
   };
 
+  const filteredClubs = clubs.filter(club => {
+    if (activeFilter === "men") return club.gender === "men";
+    if (activeFilter === "women") return club.gender === "women";
+    return true;
+  });
+
   return (
-    <div className="min-h-screen bg-[#0f172a] text-slate-100 flex flex-col font-sans" dir="rtl">
+    <div className="min-h-screen bg-[#fcfbf9] text-stone-800 flex flex-col font-sans" dir="rtl">
       <Navbar />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-12">
-        <div className="text-center mb-10">
-          <h1 className="text-3xl font-extrabold text-white mb-3">نوادي خميس مشيط الرياضية</h1>
-          <p className="text-slate-400 text-sm max-w-xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-extrabold text-stone-900 mb-3">نوادي خميس مشيط الرياضية</h1>
+          <p className="text-stone-600 text-sm max-w-xl mx-auto mb-6">
             استعرض أبرز المراكز الرياضية في خميس مشيط، احفظ ناديك المفضل، وتعرف على التفاصيل والمواقع بدقة.
           </p>
+
+          {/* أزرار التصفية فئات النوادي */}
+          <div className="flex justify-center items-center gap-3">
+            <button
+              onClick={() => setActiveFilter("all")}
+              className={`px-5 py-2 rounded-xl text-xs font-semibold transition border ${
+                activeFilter === "all"
+                  ? "bg-emerald-900 text-white border-emerald-900 shadow-sm"
+                  : "bg-stone-100 text-stone-700 border-stone-200 hover:bg-stone-200"
+              }`}
+            >
+              جميع النوادي
+            </button>
+            <button
+              onClick={() => setActiveFilter("men")}
+              className={`px-5 py-2 rounded-xl text-xs font-semibold transition border ${
+                activeFilter === "men"
+                  ? "bg-emerald-900 text-white border-emerald-900 shadow-sm"
+                  : "bg-stone-100 text-stone-700 border-stone-200 hover:bg-stone-200"
+              }`}
+            >
+              نوادي الرجال
+            </button>
+            <button
+              onClick={() => setActiveFilter("women")}
+              className={`px-5 py-2 rounded-xl text-xs font-semibold transition border ${
+                activeFilter === "women"
+                  ? "bg-emerald-900 text-white border-emerald-900 shadow-sm"
+                  : "bg-stone-100 text-stone-700 border-stone-200 hover:bg-stone-200"
+              }`}
+            >
+              نوادي السيدات
+            </button>
+          </div>
         </div>
 
         {/* شبكة النوادي */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {clubs.map((club) => (
+          {filteredClubs.map((club) => (
             <div
               key={club.id}
-              className="bg-[#1e293b] border border-slate-800 rounded-2xl overflow-hidden shadow-lg flex flex-col justify-between relative group"
+              className="bg-white border border-stone-200/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between relative group"
             >
               {/* زر الحفظ (Bookmark) */}
               <button
                 onClick={() => toggleBookmark(club.id)}
-                className={`absolute top-4 left-4 p-2 rounded-full border z-10 transition shadow-md ${
+                className={`absolute top-4 left-4 p-2 rounded-full border z-10 transition shadow-sm ${
                   club.bookmarked
-                    ? "bg-slate-100 text-slate-900 border-white"
-                    : "bg-slate-900/80 text-slate-300 border-slate-700 hover:bg-slate-800"
+                    ? "bg-emerald-900 text-white border-emerald-900"
+                    : "bg-white/90 text-stone-600 border-stone-200 hover:bg-stone-100"
                 }`}
                 title="حفظ النادي"
               >
@@ -118,35 +174,38 @@ export default function ClubsPage() {
                 </svg>
               </button>
 
-              {/* صورة النادي الحقيقية للمنشأة */}
-              <div className="h-44 w-full overflow-hidden bg-slate-800 relative">
+              {/* صورة النادي */}
+              <div className="h-44 w-full overflow-hidden bg-stone-100 relative">
                 <img
                   src={club.image}
                   alt={club.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                 />
+                <span className="absolute bottom-3 right-3 bg-white/95 text-emerald-900 border border-stone-200 px-2.5 py-1 rounded-md text-[10px] font-bold">
+                  مخصص: {club.categoryName}
+                </span>
               </div>
 
               <div className="p-5 flex-1 flex flex-col justify-between">
                 <div>
                   {/* التقييم والاسم */}
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-base font-bold text-white">{club.name}</h3>
-                    <span className="text-xs bg-slate-800 text-amber-400 px-2 py-0.5 rounded-lg border border-slate-700 font-medium">
+                    <h3 className="text-base font-bold text-stone-900">{club.name}</h3>
+                    <span className="text-xs bg-emerald-50 text-emerald-900 px-2 py-0.5 rounded-lg border border-emerald-200/60 font-semibold">
                       ★ {club.rating}
                     </span>
                   </div>
 
                   {/* السعر */}
-                  <p className="text-xs font-semibold text-slate-300 mb-4">
-                    السعر: <span className="text-white">{club.price}</span>
+                  <p className="text-xs font-medium text-stone-600 mb-4">
+                    السعر: <span className="text-stone-900 font-bold">{club.price}</span>
                   </p>
                 </div>
 
                 {/* زر عرض التفاصيل */}
                 <button
                   onClick={() => setSelectedClub(club)}
-                  className="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium py-2.5 rounded-xl transition"
+                  className="w-full bg-stone-100 hover:bg-stone-200 text-stone-800 border border-stone-200 text-xs font-semibold py-2.5 rounded-xl transition"
                 >
                   عرض التفاصيل والخريطة
                 </button>
@@ -157,25 +216,26 @@ export default function ClubsPage() {
 
         {/* نافذة تفاصيل النادي */}
         {selectedClub && (
-          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-            <div className="bg-[#1e293b] border border-slate-700 rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
-              <div className="flex items-center justify-between border-b border-slate-700 pb-3">
-                <h3 className="text-lg font-bold text-white">{selectedClub.name}</h3>
+          <div className="fixed inset-0 bg-stone-900/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+            <div className="bg-white border border-stone-200 rounded-3xl max-w-md w-full p-6 space-y-4 shadow-xl relative">
+              <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+                <h3 className="text-lg font-bold text-stone-900">{selectedClub.name}</h3>
                 <button
                   onClick={() => setSelectedClub(null)}
-                  className="text-slate-400 hover:text-white text-sm px-2 py-1"
+                  className="text-stone-400 hover:text-stone-700 text-sm px-2 py-1"
                 >
                   ✕
                 </button>
               </div>
 
-              <div className="space-y-3 text-xs text-slate-300">
-                <div className="h-40 rounded-xl overflow-hidden mb-2">
+              <div className="space-y-3 text-xs text-stone-600">
+                <div className="h-40 rounded-xl overflow-hidden mb-2 border border-stone-100">
                   <img src={selectedClub.image} alt={selectedClub.name} className="w-full h-full object-cover" />
                 </div>
-                <p><strong className="text-white">التقييم:</strong> ★ {selectedClub.rating}</p>
-                <p><strong className="text-white">تكلفة الاشتراك:</strong> {selectedClub.price}</p>
-                <p><strong className="text-white">نبذة عن النادي:</strong> {selectedClub.description}</p>
+                <p><strong className="text-stone-900">الفئة:</strong> {selectedClub.categoryName}</p>
+                <p><strong className="text-stone-900">التقييم:</strong> ★ {selectedClub.rating}</p>
+                <p><strong className="text-stone-900">تكلفة الاشتراك:</strong> {selectedClub.price}</p>
+                <p><strong className="text-stone-900">نبذة عن النادي:</strong> {selectedClub.description}</p>
               </div>
 
               <div className="pt-2 flex gap-3">
@@ -183,13 +243,13 @@ export default function ClubsPage() {
                   href={selectedClub.locationUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 bg-slate-100 hover:bg-white text-slate-900 text-center text-xs font-medium py-2.5 rounded-xl transition shadow"
+                  className="flex-1 bg-emerald-900 hover:bg-emerald-800 text-white text-center text-xs font-semibold py-2.5 rounded-xl transition shadow-sm"
                 >
                   فتح الموقع في Google Maps
                 </a>
                 <button
                   onClick={() => setSelectedClub(null)}
-                  className="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-4 py-2.5 rounded-xl border border-slate-700 transition"
+                  className="bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs px-4 py-2.5 rounded-xl border border-stone-200 transition"
                 >
                   إغلاق
                 </button>
