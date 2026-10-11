@@ -5,11 +5,16 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function TrainersPage() {
+  const [activeGenderFilter, setActiveGenderFilter] = useState<"all" | "male" | "female">("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedTrainer, setSelectedTrainer] = useState<any>(null);
+
   const [trainers, setTrainers] = useState([
     {
       id: 1,
       name: "الكابتن فيصل القحطاني",
       gender: "male",
+      genderLabel: "رجال",
       specialty: "كمال أجسام وقوة ضخمة",
       club: "فرع السد نادي IN 2 FITNESS",
       rating: "4.9",
@@ -25,6 +30,7 @@ export default function TrainersPage() {
       id: 2,
       name: "الكابتن أمل الشهراني",
       gender: "female",
+      genderLabel: "سيدات",
       specialty: "لياقة نسائية وتخفيف الوزن",
       club: "نادي يورفت النسائي",
       rating: "4.8",
@@ -40,6 +46,7 @@ export default function TrainersPage() {
       id: 3,
       name: "الكابتن عبدالعزيز العمري",
       gender: "male",
+      genderLabel: "رجال",
       specialty: "كروسفت ولياقة وظيفية",
       club: "G4Fit - جي فور فت",
       rating: "4.9",
@@ -55,6 +62,7 @@ export default function TrainersPage() {
       id: 4,
       name: "الكابتن ريم الدوسري",
       gender: "female",
+      genderLabel: "سيدات",
       specialty: "تغذية رياضية ورشاقة",
       club: "بودي ماسترز بريميوم",
       rating: "4.7",
@@ -70,6 +78,7 @@ export default function TrainersPage() {
       id: 5,
       name: "الكابتن تركي الشمري",
       gender: "male",
+      genderLabel: "رجال",
       specialty: "إعادة التأهيل والإصابات الرياضية",
       club: "Fitness Time | وقت اللياقة",
       rating: "4.8",
@@ -85,6 +94,7 @@ export default function TrainersPage() {
       id: 6,
       name: "الكابتن نوف العتيبي",
       gender: "female",
+      genderLabel: "سيدات",
       specialty: "بناء الأجسام والحديد للسيدات",
       club: "نادي يورفت النسائي",
       rating: "4.9",
@@ -100,6 +110,7 @@ export default function TrainersPage() {
       id: 7,
       name: "الكابتن سلطان الغامدي",
       gender: "male",
+      genderLabel: "رجال",
       specialty: "اللياقة البدنية العامة",
       club: "تمرين بلس الرياضي",
       rating: "4.6",
@@ -115,6 +126,7 @@ export default function TrainersPage() {
       id: 8,
       name: "الكابتن مها البلوي",
       gender: "female",
+      genderLabel: "سيدات",
       specialty: "يوغا وإطالة واسترخاء",
       club: "أكاديمية ويمارا للتدريب",
       rating: "4.8",
@@ -130,6 +142,7 @@ export default function TrainersPage() {
       id: 9,
       name: "الكابتن نايف المطيري",
       gender: "male",
+      genderLabel: "رجال",
       specialty: "تخفيف الوزن وحرق الدهون",
       club: "بودي ماسترز بريميوم",
       rating: "4.7",
@@ -145,6 +158,7 @@ export default function TrainersPage() {
       id: 10,
       name: "الكابتن سارة القحطاني",
       gender: "female",
+      genderLabel: "سيدات",
       specialty: "تدريب شخصي مكثف",
       club: "Fitness Time | وقت اللياقة",
       rating: "4.9",
@@ -160,6 +174,7 @@ export default function TrainersPage() {
       id: 11,
       name: "الكابتن ماجد الحربي",
       gender: "male",
+      genderLabel: "رجال",
       specialty: "قوة التحمل وفنون الدفاع عن النفس",
       club: "فرع السد نادي IN 2 FITNESS",
       rating: "4.6",
@@ -175,6 +190,7 @@ export default function TrainersPage() {
       id: 12,
       name: "الكابتن أهود الزهراني",
       gender: "female",
+      genderLabel: "سيدات",
       specialty: "تمرين السكوات وبناء الجزء السفلي",
       club: "نادي يورفت النسائي",
       rating: "4.8",
@@ -190,6 +206,7 @@ export default function TrainersPage() {
       id: 13,
       name: "الكابتن رائد المالكي",
       gender: "male",
+      genderLabel: "رجال",
       specialty: "تنشيط وعضلات البطن",
       club: "G4Fit - جي فور فت",
       rating: "4.7",
@@ -205,6 +222,7 @@ export default function TrainersPage() {
       id: 14,
       name: "الكابتن الهام الرشيدي",
       gender: "female",
+      genderLabel: "سيدات",
       specialty: "اللياقة المرنة والتنحيف",
       club: "تمرين بلس الرياضي",
       rating: "4.7",
@@ -220,6 +238,7 @@ export default function TrainersPage() {
       id: 15,
       name: "الكابتن طارق البقمي",
       gender: "male",
+      genderLabel: "رجال",
       specialty: "بناء الأجسام والضخامة العضلية",
       club: "بودي ماسترز بريميوم",
       rating: "4.9",
@@ -235,6 +254,7 @@ export default function TrainersPage() {
       id: 16,
       name: "الكابتن منال العمري",
       gender: "female",
+      genderLabel: "سيدات",
       specialty: "التغذية الرياضية والصحة العامة",
       club: "أكاديمية ويمارا للتدريب",
       rating: "4.8",
@@ -247,9 +267,6 @@ export default function TrainersPage() {
       newReviewText: "",
     },
   ]);
-
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTrainer, setSelectedTrainer] = useState<any>(null);
 
   const toggleBookmark = (id: number) => {
     setTrainers(trainers.map(t => t.id === id ? { ...t, bookmarked: !t.bookmarked } : t));
@@ -274,24 +291,62 @@ export default function TrainersPage() {
     }));
   };
 
-  const filteredTrainers = trainers.filter(trainer =>
-    trainer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    trainer.specialty.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    trainer.club.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // تصفية المدربين حسب الجنس والبحث
+  const filteredTrainers = trainers.filter(trainer => {
+    const matchesGender = activeGenderFilter === "all" || trainer.gender === activeGenderFilter;
+    const matchesSearch =
+      trainer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      trainer.specialty.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      trainer.club.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesGender && matchesSearch;
+  });
 
   return (
     <div className="min-h-screen bg-[#fcfbf9] text-stone-800 flex flex-col font-sans" dir="rtl">
       <Navbar />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-12">
-        <div className="text-center mb-10 space-y-3">
+        <div className="text-center mb-8 space-y-3">
           <h1 className="text-3xl font-extrabold text-stone-900">نخبة المدربين الرياضيين</h1>
           <p className="text-stone-600 text-sm max-w-xl mx-auto">
             تصفح قائمة المدربين والمدربات المعتمدين، تعرف على أنديتهم، تواصل معهم مباشرة، واحفظ مفضلتك.
           </p>
 
-          <div className="max-w-xl mx-auto mt-6">
+          {/* أزرار التصفية حسب الجنس */}
+          <div className="flex justify-center items-center gap-3 pt-2">
+            <button
+              onClick={() => setActiveGenderFilter("all")}
+              className={`px-5 py-2 rounded-xl text-xs font-semibold transition border ${
+                activeGenderFilter === "all"
+                  ? "bg-emerald-900 text-white border-emerald-900 shadow-sm"
+                  : "bg-stone-100 text-stone-700 border-stone-200 hover:bg-stone-200"
+              }`}
+            >
+              جميع المدربين
+            </button>
+            <button
+              onClick={() => setActiveGenderFilter("male")}
+              className={`px-5 py-2 rounded-xl text-xs font-semibold transition border ${
+                activeGenderFilter === "male"
+                  ? "bg-emerald-900 text-white border-emerald-900 shadow-sm"
+                  : "bg-stone-100 text-stone-700 border-stone-200 hover:bg-stone-200"
+              }`}
+            >
+              مدربين رجال
+            </button>
+            <button
+              onClick={() => setActiveGenderFilter("female")}
+              className={`px-5 py-2 rounded-xl text-xs font-semibold transition border ${
+                activeGenderFilter === "female"
+                  ? "bg-emerald-900 text-white border-emerald-900 shadow-sm"
+                  : "bg-stone-100 text-stone-700 border-stone-200 hover:bg-stone-200"
+              }`}
+            >
+              مدربات سيدات
+            </button>
+          </div>
+
+          <div className="max-w-xl mx-auto mt-4">
             <input
               type="text"
               placeholder="ابحث باسم المدرب أو التخصص (مثل: فيصل، كمال أجسام، تغذية...)"
@@ -331,8 +386,11 @@ export default function TrainersPage() {
               <div className="flex-1 flex flex-col justify-between space-y-3 text-center">
                 <div>
                   <h3 className="text-sm font-bold text-stone-900 mb-1">{trainer.name}</h3>
-                  <div className="flex justify-center mb-2">
-                    <span className="text-[11px] bg-emerald-50 text-emerald-900 px-2.5 py-0.5 rounded-lg border border-emerald-200/60 font-semibold">
+                  <div className="flex justify-center items-center gap-1.5 mb-2">
+                    <span className="text-[10px] bg-stone-100 text-stone-700 px-2 py-0.5 rounded-md border border-stone-200 font-semibold">
+                      {trainer.genderLabel}
+                    </span>
+                    <span className="text-[11px] bg-emerald-50 text-emerald-900 px-2 py-0.5 rounded-lg border border-emerald-200/60 font-semibold">
                       ★ {trainer.rating} ({trainer.reviewsCount})
                     </span>
                   </div>
@@ -354,7 +412,7 @@ export default function TrainersPage() {
 
         {filteredTrainers.length === 0 && (
           <div className="text-center py-16 text-stone-500 text-sm">
-            لا توجد نتائج مطابقة لبحثك.
+            لا توجد نتائج مطابقة لبحثك والتصفية المختارة.
           </div>
         )}
 
@@ -379,6 +437,7 @@ export default function TrainersPage() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 bg-stone-50 p-3 rounded-2xl border border-stone-200">
+                  <p><strong className="text-stone-900">الفئة:</strong> {selectedTrainer.genderLabel}</p>
                   <p><strong className="text-stone-900">التقييم:</strong> ★ {selectedTrainer.rating}</p>
                   <p><strong className="text-stone-900">التكلفة:</strong> {selectedTrainer.price}</p>
                   <p className="col-span-2"><strong className="text-stone-900">النادي التابع له:</strong> {selectedTrainer.club}</p>
